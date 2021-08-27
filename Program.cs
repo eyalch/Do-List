@@ -11,7 +11,7 @@ namespace To_Do_List_Project_
             {
                 MyDisplay.Menu();
 
-                Console.WriteLine("Choose your option: ");
+                Console.WriteLine("Choose Your Option: ");
                 var option = Console.ReadLine();
 
                 if (option.Equals(0))
