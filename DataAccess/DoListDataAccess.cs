@@ -1,86 +1,51 @@
-﻿using DoList.Utilities;
-using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using To_Do_List_Project_.DataAccess;
 
 namespace To_Do_List_Project_
 {
     public class DoListDataAccess
     {
-        private static MyDBContext _db = new MyDBContext();
-
-        public static void Watch() // Done
+        public static List<DoListModel> List()
         {
-            using (var context = new MyDBContext())
+            using (var context = new AppDBContext())
             {
-                var counter = context.DoList.Count();
-                Console.WriteLine($"\nYou have {counter} tasks: \n");
-
-                var list = context.DoList.ToList();
-
-                foreach (var item in list)
-                {
-                    Console.WriteLine(item.Task);
-                }
+                return context.DoList.ToList();
             }
         }
 
-        public static void Add() // Done
+        public static void Add(string text)
         {
-            using (var context = new MyDBContext())
+            using (var context = new AppDBContext())
             {
-                Console.WriteLine("\nEnter new task: ");
-                var counterId = context.DoList.Count() + 1;
-
-                var newTask = new DoListModel()
+                var newTask = new DoListModel
                 {
-                    Id = counterId,
-                    Task = Console.ReadLine()
+                    Id = context.DoList.Count() + 1,
+                    Task = text
                 };
 
-                context.Add(newTask);
+                context.DoList.Add(newTask);
                 context.SaveChanges();
             }
         }
 
-        public static void Edit() // Done
+        public static void Edit(int id, string newText)
         {
-            using (var context = new MyDBContext())
+            using (var context = new AppDBContext())
             {
-                Console.WriteLine("Id of task to change: ");
-                var idOfTask = Int32.Parse(Console.ReadLine());
-                
-                Console.WriteLine("Insert new task: ");
-                var newTask = Console.ReadLine();
-
-                var result = context.DoList.Find(idOfTask);
-                result.Task = newTask;
-
+                var result = context.DoList.Find(id);
+                result.Task = newText;
                 context.SaveChanges();
             }
         }
 
-        public static void Delete() // Done
+        public static void Delete(int id)
         {
-            using (var context = new MyDBContext())
+            using (var context = new AppDBContext())
             {
-                var allTasks = context.DoList.ToList();
-
-                Console.WriteLine("Id task to delete: ");
-                var idOfTask = Int32.Parse(Console.ReadLine());
-
-                context.Remove(allTasks[idOfTask - 1]);
+                var task = context.DoList.Find(id);
+                context.DoList.Remove(task);
                 context.SaveChanges();
-
-                if (allTasks.Count() < 1)
-                {
-                    Console.WriteLine($"\nThere are {allTasks.Count() - 1} task left\n");
-                }
-                
             }
         }
     }
