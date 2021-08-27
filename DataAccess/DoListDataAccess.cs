@@ -51,7 +51,7 @@ namespace To_Do_List_Project_
         {
             using (var context = new MyDBContext())
             {
-                Console.WriteLine("Id task to change: ");
+                Console.WriteLine("Id of task to change: ");
                 var idOfTask = Int32.Parse(Console.ReadLine());
                 
                 Console.WriteLine("Insert new task: ");
