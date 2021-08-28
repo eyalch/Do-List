@@ -11,6 +11,5 @@ namespace TaskManager.Data
         }
 
         public virtual DbSet<Task> Tasks { get; set; }
-        public virtual DbSet<Post> Posts { get; set; }
     }
 }

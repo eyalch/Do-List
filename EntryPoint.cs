@@ -8,12 +8,10 @@ namespace TaskManager
     public class EntryPoint
     {
         private readonly ITaskRepository _taskRepository;
-        private readonly IPostGetter _postGetter;
 
-        public EntryPoint(ITaskRepository taskRepository, IPostGetter postGetter)
+        public EntryPoint(ITaskRepository taskRepository)
         {
             _taskRepository = taskRepository;
-            _postGetter = postGetter;
         }
 
         public void Run()
@@ -64,13 +62,6 @@ namespace TaskManager
                         var id = Int32.Parse(Console.ReadLine());
 
                         _taskRepository.DeleteTask(id);
-                    }
-                    break;
-
-                case "5":
-                    {
-                        var post = _postGetter.GetPost(1);
-                        Console.WriteLine(post);
                     }
                     break;
 

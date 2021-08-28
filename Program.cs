@@ -33,8 +33,6 @@ namespace TaskManager
                 .AddDbContext<ApplicationDbContext>(options =>
                     options.UseSqlServer(connectionString))
                 .AddSingleton<ITaskRepository, TaskRepository>()
-                .AddSingleton<IPostRepository, PostRepository>()
-                .AddSingleton<IPostGetter, PostGetter>()
                 .AddSingleton<EntryPoint>();
         }
     }
